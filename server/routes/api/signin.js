@@ -1,22 +1,37 @@
+
 const User = require('../../models/User');
 
 module.exports = (app) => {
     /*
      * Sign up
      */
+
+
     app.post('/api/account/signup', (req, res, next) => {
         const { body } = req;
         const {
+            firstName,
+            lastName,
+            email,
             password
-        } = body;
-        let {
-            email
         } = body;
 
         if (!email) {
             return res.send({
                 success: false,
                 message: 'Error: Email cannot be blank.'
+            });
+        }
+        if (!firstName) {
+            return res.send({
+                sucess: false,
+                message: 'Error: First Name cannot be blank.'
+            });
+        }
+        if (!lastName) {
+            return res.send({
+                sucess: false,
+                message: "Error: Last Name cannot be blank."
             });
         }
         if (!password) {
@@ -31,7 +46,7 @@ module.exports = (app) => {
         // Steps:
         // 1. Verify email doesn't exist
         // 2. Save
-        
+
         User.find({
             email: email
         }, (err, previousUsers) => {
@@ -46,9 +61,9 @@ module.exports = (app) => {
                     message: 'Error: Account already exist.'
                 });
             }
-        
+
             // Save the new user
-        
+
             const newUser = new User();
             newUser.email = email;
             newUser.password = newUser.generateHash(password);
