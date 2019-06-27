@@ -65,6 +65,8 @@ module.exports = (app) => {
             // Save the new user
 
             const newUser = new User();
+            newUser.firstName = firstName;
+            newUser.lastName = lastName;
             newUser.email = email;
             newUser.password = newUser.generateHash(password);
             newUser.save((err, user) => {
