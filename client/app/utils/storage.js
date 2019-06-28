@@ -23,7 +23,7 @@ export function setInStorage(key, obj) {
     };
 };
 
-componentDidMount() {
+export function componentDidMount() {
     const obj = getFromStorage('the_main_app');
     if (obj && obj.token) {
         const { token } = obj;
